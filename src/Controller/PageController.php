@@ -17,18 +17,7 @@ class PageController extends AbstractController
      */
     public function root()
     {
-        return $this->level1("Root");
-    }
-    /**
-     * @Route("/{slug}")
-     * @param $slug
-     * @return Response
-     */
-    public function level1($slug)
-    {
-        return $this->render('page.html.twig', [
-            'data' => $slug,
-        ]);
+        return $this->page("Root");
     }
 
     /**
@@ -37,7 +26,7 @@ class PageController extends AbstractController
      * @param $slug2
      * @return Response
      */
-    public function level2($slug1, $slug2)
+    public function page($slug1, $slug2 = "")
     {
         return $this->render('page.html.twig', [
             'data' => $slug1 . $slug2,
