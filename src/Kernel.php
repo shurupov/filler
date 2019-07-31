@@ -1,13 +1,10 @@
 <?php
 
-
 namespace Filler;
 
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Bundle\TwigBundle\TwigBundle;
-use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -16,54 +13,41 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    public function registerBundles()
+    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
+    public function registerBundles(): iterable
     {
-        $bundles = [
-            new FrameworkBundle(),
-            new TwigBundle(),
-        ];
-
-        if ($this->getEnvironment() == 'dev') {
-            $bundles[] = new WebProfilerBundle();
-        }
-
-        return $bundles;
-    }
-
-    protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
-    {
-        $loader->load(__DIR__.'/../config/framework.yml');
-
-        // configure WebProfilerBundle only if the bundle is enabled
-        if (isset($this->bundles['WebProfilerBundle'])) {
-            $c->loadFromExtension('web_profiler', [
-                'toolbar' => true,
-                'intercept_redirects' => false,
-            ]);
+        $contents = require $this->getProjectDir().'/config/bundles.php';
+        foreach ($contents as $class => $envs) {
+            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
+                yield new $class();
+            }
         }
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routes)
+    public function getProjectDir(): string
     {
-        // import the WebProfilerRoutes, only if the bundle is enabled
-        if (isset($this->bundles['WebProfilerBundle'])) {
-            $routes->import('@WebProfilerBundle/Resources/config/routing/wdt.xml', '/_wdt');
-            $routes->import('@WebProfilerBundle/Resources/config/routing/profiler.xml', '/_profiler');
-        }
-
-        // load the annotation routes
-        $routes->import(__DIR__.'/../src/Controller/', '/', 'annotation');
+        return \dirname(__DIR__);
     }
 
-    // optional, to use the standard Symfony cache directory
-    public function getCacheDir()
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        return __DIR__.'/../var/cache/'.$this->getEnvironment();
+        $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
+        $container->setParameter('container.dumper.inline_class_loader', true);
+        $confDir = $this->getProjectDir().'/config';
+
+        $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
     }
 
-    // optional, to use the standard Symfony logs directory
-    public function getLogDir()
+    protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
-        return __DIR__.'/../var/log';
+        $confDir = $this->getProjectDir().'/config';
+
+        $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 }

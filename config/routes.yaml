@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: Filler\Controller\PageController::root
+
+controllers:
+    resource: '../src/Controller/'
+    type: annotation
