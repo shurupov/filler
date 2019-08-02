@@ -4,29 +4,19 @@
 namespace Filler\Controller;
 
 
-use Exception;
-use Filler\Service\DataService;
+use Filler\Service\PageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PageController extends AbstractController
 {
-    /** @var DataService $dataService */
-    private $dataService;
+    /** @var PageService $pageService */
+    private $pageService;
 
-    public function __construct(DataService $dataService)
+    public function __construct(PageService $dataService)
     {
-        $this->dataService = $dataService;
-    }
-
-    /**
-     * @Route("/")
-     * @return Response
-     */
-    public function root()
-    {
-        return $this->page("root");
+        $this->pageService = $dataService;
     }
 
     /**
@@ -35,10 +25,10 @@ class PageController extends AbstractController
      * @param $slug2
      * @return Response
      */
-    public function page($slug1, $slug2 = "")
+    public function page($slug1 = "root", $slug2 = "")
     {
         return $this->render('page.html.twig', [
-            'data' => $this->dataService->getData($slug1 . $slug2),
+            'data' => $this->pageService->getPageData($slug1, $slug2),
         ]);
     }
 }
