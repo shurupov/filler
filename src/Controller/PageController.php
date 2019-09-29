@@ -4,20 +4,19 @@
 namespace Filler\Controller;
 
 
-use Exception;
+use Filler\Service\PageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PageController extends AbstractController
 {
-    /**
-     * @Route("/")
-     * @return Response
-     */
-    public function root()
+    /** @var PageService $pageService */
+    private $pageService;
+
+    public function __construct(PageService $dataService)
     {
-        return $this->page("Root");
+        $this->pageService = $dataService;
     }
 
     /**
@@ -26,10 +25,11 @@ class PageController extends AbstractController
      * @param $slug2
      * @return Response
      */
-    public function page($slug1, $slug2 = "")
+    public function page($slug1 = "root", $slug2 = "")
     {
+        $slug = $slug1 . (!empty($slug1) ? "/".$slug2 : "");
         return $this->render('page.html.twig', [
-            'data' => $slug1 . $slug2,
+            'data' => $this->pageService->get($slug),
         ]);
     }
 }
