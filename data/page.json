@@ -1,4 +1,8 @@
 {
+    "root": {
+        "name": "This is root page",
+        "description": "This is root page description"
+    },
     "abc": {
         "name": "qqqq",
         "description": "qqqq description"
