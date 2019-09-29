@@ -28,7 +28,7 @@ class PageController extends AbstractController
     public function page($slug1 = "root", $slug2 = "")
     {
         return $this->render('page.html.twig', [
-            'data' => $this->pageService->getPageData($slug1, $slug2),
+            'data' => $this->pageService->get($slug1 . $slug2),
         ]);
     }
 }

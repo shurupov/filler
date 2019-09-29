@@ -4,21 +4,24 @@
 namespace Filler\Service;
 
 
+use Filler\Repository\PageRepository;
+
 class PageService
 {
-    private const PAGE_COLLECTION_NAME = "page";
+    /* @var PageRepository $pageRepository */
+    private $pageRepository;
 
-    /** @var DataService $dataService */
-    private $dataService;
-
-    public function __construct(DataService $dataService)
+    /**
+     * PageService constructor.
+     * @param PageRepository $pageRepository
+     */
+    public function __construct(PageRepository $pageRepository)
     {
-        $this->dataService = $dataService;
+        $this->pageRepository = $pageRepository;
     }
 
-    public function getPageData($slug1, $slug2) {
-        $slug = $slug1 . (empty($slug2) ? "" : "/$slug2");
-        return $this->dataService->getDocumentByField(self::PAGE_COLLECTION_NAME, "slug", $slug);
+    public function get($id) {
+        //return $this->aaService->get($id);
+        return $this->pageRepository->getDocumentById($id);
     }
-
 }
