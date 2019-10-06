@@ -7,8 +7,16 @@
         "name": "A B C",
         "description": "A B C description"
     },
-    "abc/def": {
+    "abcdef": {
         "name": "A B C D E F",
         "description": "A B C D E F description"
+    },
+    "абв": {
+        "name": "А Б В",
+        "description": "Описание А Б В"
+    },
+    "абвгде": {
+        "name": "А Б В Г Д Е",
+        "description": "Описание А Б В Г Д Е"
     }
 }
