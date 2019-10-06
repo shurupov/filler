@@ -1,4 +1,6 @@
 {
+    "name": "shurupov/filler",
+    "version": "0.1",
     "require": {
         "symfony/config": "^4.2",
         "symfony/http-kernel": "^4.2",

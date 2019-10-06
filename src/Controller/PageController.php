@@ -20,14 +20,12 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/{slug1}/{slug2}")
-     * @param $slug1
-     * @param $slug2
+     * @Route("/{slug}")
+     * @param $slug
      * @return Response
      */
-    public function page($slug1 = "root", $slug2 = "")
+    public function page($slug = "root")
     {
-        $slug = $slug1 . (!empty($slug1) ? "/".$slug2 : "");
         return $this->render('page.html.twig', [
             'data' => $this->pageService->get($slug),
         ]);
