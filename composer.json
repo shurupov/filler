@@ -23,8 +23,8 @@
     }
   },
   "scripts": {
-    "post-install": [
-      "echo \"Welcome!\""
+    "post-install-cmd": [
+      "Filler\\Installer\\Installer::postInstall"
     ]
   }
 }
