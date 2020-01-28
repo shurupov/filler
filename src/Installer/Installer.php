@@ -3,20 +3,15 @@
 
 namespace Filler\Installer;
 
-
-use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
-    /**
-     * @param Event $event
-     */
-    public static function postInstall(Event $event)
+    public static function postInstall()
     {
         echo "postInstall is started";
         $fs = new Filesystem;
         $fs->mkdir('public');
-        $fs->copy('vendor/shurupov/filler/index.php', 'public/index.php');
+        $fs->copy('vendor/shurupov/filler/public/index.php', 'public/index.php');
     }
 }
