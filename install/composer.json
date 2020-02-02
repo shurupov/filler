@@ -2,6 +2,11 @@
   "require": {
     "shurupov/filler": "dev-develop"
   },
+  "autoload": {
+    "psr-4": {
+      "Filler\\": "src/"
+    }
+  },
   "scripts": {
     "post-install-cmd": [
       "Filler\\Installer\\Installer::postInstall"
