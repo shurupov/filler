@@ -1,0 +1,10 @@
+{
+  "require": {
+    "shurupov/filler": "dev-develop"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "Filler\\Installer\\Installer::postInstall"
+    ]
+  }
+}
