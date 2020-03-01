@@ -14,5 +14,7 @@ class Installer
         $fs = new Filesystem;
         $fs->mkdir('public');
         $fs->copy('vendor/shurupov/filler/public/index.php', 'public/index.php');
+        $fs->mkdir('data');
+        $fs->copy('vendor/shurupov/filler/data/page.json', 'data/page.json');
     }
 }
