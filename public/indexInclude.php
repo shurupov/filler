@@ -1,7 +1,7 @@
 <?php
 
 use Filler\Kernel;
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 if ($_SERVER['APP_DEBUG']) {

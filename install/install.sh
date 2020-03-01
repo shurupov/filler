@@ -1,1 +1,1 @@
-cp ../filler/install/composer.json ./ && composer install --no-cache && symfony server:start
+mkdir example && cd example && cp ../filler/install/composer.json ./ && composer install && composer install --no-cache && symfony server:start
