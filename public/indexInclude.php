@@ -6,8 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
-
     Debug::enable();
+}
+
+if (!array_key_exists('APP_ENV', $_SERVER)) {
+    $_SERVER['APP_ENV'] = 'dev';
 }
 
 if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? $_ENV['TRUSTED_PROXIES'] ?? false) {
