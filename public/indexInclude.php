@@ -9,6 +9,10 @@ if ($_SERVER['APP_DEBUG']) {
     Debug::enable();
 }
 
+if (!array_key_exists('APP_DEBUG', $_SERVER)) {
+    $_SERVER['APP_DEBUG'] = false;
+}
+
 if (!array_key_exists('APP_ENV', $_SERVER)) {
     $_SERVER['APP_ENV'] = 'dev';
 }
