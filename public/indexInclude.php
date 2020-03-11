@@ -4,13 +4,13 @@ use Filler\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
+if (!array_key_exists('APP_DEBUG', $_SERVER)) {
+    $_SERVER['APP_DEBUG'] = false;
+}
+
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
     Debug::enable();
-}
-
-if (!array_key_exists('APP_DEBUG', $_SERVER)) {
-    $_SERVER['APP_DEBUG'] = false;
 }
 
 if (!array_key_exists('APP_ENV', $_SERVER)) {
