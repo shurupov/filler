@@ -1,18 +1,12 @@
-{% extends '/template/base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block stylesheets %}{% endblock %}
+    <title>Page</title>
+</head>
+<body>
+{% block body %}{% endblock %}
 
-{% block stylesheets %}
-    {% if editMode %}
-        <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-        <link href="/plugins/edit-tools/edit-tools.css" rel="stylesheet">
-        <link href="/plugins/slide-panel/style.css" rel="stylesheet">
-        <link href="/plugins/fancybox-3.0/dist/jquery.fancybox.min.css" rel="stylesheet">
-        <link href="/plugins/bootstrap-iconpicker-1.9.0/dist/css/bootstrap-iconpicker.min.css" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.min.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.3.1/css/weather-icons.min.css"/>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/css/flag-icon.min.css"/>
-    {% endif %}
-{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
